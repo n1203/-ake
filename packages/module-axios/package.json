@@ -1,0 +1,35 @@
+{
+  "name": "module-axios",
+  "version": "1.0.0",
+  "description": "A modular axios request library.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "tsc -p tsconfig.json",
+    "test": "ts-mocha -p ./tsconfig.test.json ./test/*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/n1203/ake/axios-module"
+  },
+  "keywords": [
+    "axios"
+  ],
+  "author": "Junping Hu",
+  "extends": "tslint-config-airbnb",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^9.0.0",
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
+    "tslint": "^6.1.3",
+    "tslint-config-airbnb": "^5.11.2",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "lodash": "^4.17.21"
+  }
+}
