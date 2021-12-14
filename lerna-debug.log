@@ -1,9 +1,11 @@
-34 error Error: Command failed with exit code 1: git commit -m v1.0.0
-34 error On branch master
-34 error Your branch is up to date with 'origin/master'.
-34 error
-34 error nothing to commit, working tree clean
-34 error     at makeError (/usr/local/lib/node_modules/lerna/node_modules/execa/lib/error.js:60:11)
-34 error     at handlePromise (/usr/local/lib/node_modules/lerna/node_modules/execa/index.js:118:26)
-34 error     at processTicksAndRejections (internal/process/task_queues.js:95:5)
-34 error     at async Promise.all (index 0)
+0 silly argv {
+0 silly argv   _: [ 'add' ],
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'lerna',
+0 silly argv   pkg: 'mobx-state-tree-extend'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath /Users/wushuang/Documents/learn/ake
+3 error HttpErrorGeneral: 404 Not Found - GET https://registry.npmjs.com/mobx-state-tree-extend - Not found
+3 error     at /usr/local/lib/node_modules/lerna/node_modules/pacote/node_modules/npm-registry-fetch/check-response.js:95:15
