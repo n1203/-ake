@@ -44,13 +44,7 @@ interface options {
     fail?: Function;
 }
 
-export enum method {
-    'get' = 'get',
-    'post' = 'post',
-    'delete' = 'delete',
-    'opinion' = 'opinion',
-    'put' = 'put',
-}
+export type method = 'get'|'post'|'delete'|'opinion'|'put'
 
 interface createModules {
     name?: string;
@@ -200,9 +194,9 @@ class Request {
                 let url = isUndefined(module.useApiIndex)
                     ? module.url
                     : `${this.#apis[module.useApiIndex as number].url}${module.url}`;
-                if ([method.get, method.delete].includes(module.method)) url = `${url}?${data ? Object.entries(data).map((v: any) => v.join('=')).join('&') : ''}`
+                if (['get', 'delete'].includes(module.method)) url = `${url}?${data ? Object.entries(data).map((v: any) => v.join('=')).join('&') : ''}`
                 // 真正的请求
-                content = await this.#axios[method[module.method]](url, data, configs);
+                content = await this.#axios[module.method](url, data, configs);
                 // 全局后置处理函数
                 content.data = module.processFix
                     ? module.processFix(content.data, content)

@@ -11,13 +11,7 @@ interface options {
     processFix?: Function;
     fail?: Function;
 }
-export declare enum method {
-    'get' = "get",
-    'post' = "post",
-    'delete' = "delete",
-    'opinion' = "opinion",
-    'put' = "put"
-}
+export declare type method = 'get' | 'post' | 'delete' | 'opinion' | 'put';
 interface createModules {
     name?: string;
     method: method;

@@ -32,9 +32,9 @@ var __privateSet = (obj, member, value, setter) => {
   setter ? setter.call(obj, value) : member.set(obj, value);
   return value;
 };
-var __privateMethod = (obj, member, method2) => {
+var __privateMethod = (obj, member, method) => {
   __accessCheck(obj, member, "access private method");
-  return method2;
+  return method;
 };
 var _api, _apis, _axiosOptions, _prefix, _processFix, _fail, _axios, _getAuthOptions, _getAxios, getAxios_fn, _createAxios, createAxios_fn;
 var axios$2 = { exports: {} };
@@ -681,11 +681,11 @@ var defaults$3 = {
     }
   }
 };
-utils$6.forEach(["delete", "get", "head"], function forEachMethodNoData(method2) {
-  defaults$3.headers[method2] = {};
+utils$6.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
+  defaults$3.headers[method] = {};
 });
-utils$6.forEach(["post", "put", "patch"], function forEachMethodWithData(method2) {
-  defaults$3.headers[method2] = utils$6.merge(DEFAULT_CONTENT_TYPE);
+utils$6.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+  defaults$3.headers[method] = utils$6.merge(DEFAULT_CONTENT_TYPE);
 });
 var defaults_1 = defaults$3;
 var utils$5 = utils$e;
@@ -718,8 +718,8 @@ var dispatchRequest$1 = function dispatchRequest(config) {
   config.headers = config.headers || {};
   config.data = transformData2.call(config, config.data, config.headers, config.transformRequest);
   config.headers = utils$4.merge(config.headers.common || {}, config.headers[config.method] || {}, config.headers);
-  utils$4.forEach(["delete", "get", "head", "post", "put", "patch", "common"], function cleanHeaderConfig(method2) {
-    delete config.headers[method2];
+  utils$4.forEach(["delete", "get", "head", "post", "put", "patch", "common"], function cleanHeaderConfig(method) {
+    delete config.headers[method];
   });
   var adapter = config.adapter || defaults$1.adapter;
   return adapter(config).then(function onAdapterResolution(response) {
@@ -955,19 +955,19 @@ Axios$1.prototype.getUri = function getUri(config) {
   config = mergeConfig$1(this.defaults, config);
   return buildURL2(config.url, config.params, config.paramsSerializer).replace(/^\?/, "");
 };
-utils$2.forEach(["delete", "get", "head", "options"], function forEachMethodNoData2(method2) {
-  Axios$1.prototype[method2] = function(url, config) {
+utils$2.forEach(["delete", "get", "head", "options"], function forEachMethodNoData2(method) {
+  Axios$1.prototype[method] = function(url, config) {
     return this.request(mergeConfig$1(config || {}, {
-      method: method2,
+      method,
       url,
       data: (config || {}).data
     }));
   };
 });
-utils$2.forEach(["post", "put", "patch"], function forEachMethodWithData2(method2) {
-  Axios$1.prototype[method2] = function(url, data2, config) {
+utils$2.forEach(["post", "put", "patch"], function forEachMethodWithData2(method) {
+  Axios$1.prototype[method] = function(url, data2, config) {
     return this.request(mergeConfig$1(config || {}, {
-      method: method2,
+      method,
       url,
       data: data2
     }));
@@ -1096,14 +1096,6 @@ function isUndefined(obj) {
 function splitNames(name) {
   return name.split(".");
 }
-var method;
-(function(method2) {
-  method2["get"] = "get";
-  method2["post"] = "post";
-  method2["delete"] = "delete";
-  method2["opinion"] = "opinion";
-  method2["put"] = "put";
-})(method || (method = {}));
 class Request {
   constructor({
     api = "",
@@ -1208,9 +1200,9 @@ getAxios_fn = function(module) {
         authOptions: __privateGet(this, _getAuthOptions).call(this)
       }) : data2) || data2;
       let url = isUndefined(module.useApiIndex) ? module.url : `${__privateGet(this, _apis)[module.useApiIndex].url}${module.url}`;
-      if ([method.get, method.delete].includes(module.method))
+      if (["get", "delete"].includes(module.method))
         url = `${url}?${data2 ? Object.entries(data2).map((v) => v.join("=")).join("&") : ""}`;
-      content = await __privateGet(this, _axios)[method[module.method]](url, data2, configs);
+      content = await __privateGet(this, _axios)[module.method](url, data2, configs);
       content.data = module.processFix ? module.processFix(content.data, content) : content.data;
       content.data = __privateGet(this, _processFix) ? __privateGet(this, _processFix).call(this, content.data, content) : content.data;
     } catch (error) {
@@ -1229,9 +1221,6 @@ createAxios_fn = function(config = {}) {
 var request2 = /* @__PURE__ */ Object.freeze({
   __proto__: null,
   [Symbol.toStringTag]: "Module",
-  get method() {
-    return method;
-  },
   "default": Request
 });
 export { request2 as Request };
