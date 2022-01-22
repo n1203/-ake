@@ -15,6 +15,7 @@ module.exports = {
 
     nav: [
       { text: '首页', link: '/' },
+      { text: '配置项', link: '/config/' },
       { text: 'API', link: '/api/' },
     ],
     sidebar: false,

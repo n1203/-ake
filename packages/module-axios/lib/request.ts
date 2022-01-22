@@ -31,7 +31,7 @@ function splitNames(name: string) {
 
 interface api {
     url: string;
-    when: Function | Boolean;
+    when?: Function | Boolean;
 }
 
 interface options {
@@ -106,13 +106,19 @@ class Request {
         if (!isUndefined(useApiIndex)) {
             this.#api = this.#apis[useApiIndex as number].url;
         } else {
-            Array.isArray(api)
-                ? [...api].reverse().forEach((o) => {
-                      o.when instanceof Function
-                          ? o.when() && (this.#api = o.url)
-                          : o.when && (this.#api = o.url);
-                  })
-                : (this.#api = api);
+            if (Array.isArray(api)) {
+                [...api].reverse().forEach((o) => {
+                    o.when instanceof Function
+                        ? o.when() && (this.#api = o.url)
+                        : o.when && (this.#api = o.url);
+                })
+                // 如果所有都不符合条件，则使用第一个环境
+                if (!this.#api) {
+                    this.#api = api[0].url
+                }
+            } else {
+                this.#api = api
+            }
         }
         // 创建axios
         this.#axios = axios.create({
