@@ -1,13 +1,14 @@
 {
-  "extends": "./config/tsconfig.base.json",
+  "include": ["lib/**/*.ts", "lib/**/*.d.ts"],
   "compilerOptions": {
-    "outDir": "config/dist"
-  },
-  "include": [
-    "./lib"
-  ],
-  "exclude": [
-    "./test",
-    "node_modules"
-  ]
+    "target": "ES2015",
+    "lib": ["ES2015", "ES2021"],
+    "isolatedModules": true,
+    "types": ["vite/client", "node"],
+    "declaration": true,
+    "declarationMap": true,
+    "noEmit": false,
+    "outDir": "./types",
+    "emitDeclarationOnly": true,
+  }
 }
